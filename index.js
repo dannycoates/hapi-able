@@ -3,7 +3,7 @@ var path = require('path')
 
 exports.register = function (server, options, next) {
   able.load(
-    path.resolve(process.cwd(), options.dir),
+    path.resolve(process.cwd(), options.dir || './experiments'),
     options.git,
     function (err, project) {
       if (err) { return next(err) }
