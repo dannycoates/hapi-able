@@ -1,8 +1,9 @@
 var able = require('able')
+var path = require('path')
 
 exports.register = function (server, options, next) {
-  able(
-    options.dir,
+  able.load(
+    path.resolve(process.cwd(), options.dir),
     options.git,
     function (err, project) {
       if (err) { return next(err) }
@@ -13,6 +14,23 @@ exports.register = function (server, options, next) {
           return reply.continue()
         }
       )
+      if (options.clientEnabled) {
+        server.route(
+          {
+            method: 'GET',
+            path: '/experiments.bundle.js',
+            handler: function (req, reply) {
+              reply(
+                project.bundle(
+                  {
+                    clientAddress: req.info.remoteAddress
+                  }
+                )
+              ).type('application/javascript')
+            }
+          }
+        )
+      }
       next()
     }
   )
