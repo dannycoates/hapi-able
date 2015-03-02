@@ -14,7 +14,7 @@ exports.register = function (server, options, next) {
           return reply.continue()
         }
       )
-      if (options.clientEnabled) {
+      if (options.addRoutes) {
         server.route(
           {
             method: 'GET',
