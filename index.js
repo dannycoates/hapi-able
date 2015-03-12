@@ -3,8 +3,11 @@ var path = require('path')
 
 exports.register = function (server, options, next) {
   able.load(
-    path.resolve(process.cwd(), options.dir || './experiments'),
-    options.git,
+    {
+      dirname: path.resolve(process.cwd(), options.dir || './experiments'),
+      gitUrl: options.git,
+      watch: options.watch
+    },
     function (err, project) {
       if (err) { return next(err) }
       server.ext(

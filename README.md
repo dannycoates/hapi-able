@@ -13,8 +13,9 @@ server.register(
     register: require('hapi-able'),
     options: {
       dir: './experiments',
-      git: 'git://github.com/dannycoates/able-demo.git',
-      addRoutes: true
+      git: 'git://github.com/dannycoates/able-demo.git#master',
+      addRoutes: true,
+      watch: true
     }
   },
   function (err) {
@@ -40,3 +41,4 @@ server.route(
 - **dir** : *optional* directory where experiments are stored. Defaults to `./experiments` in the current working directory.
 - **git** : *optional* a github url to watch for experiment changes.
 - **addRoutes** : *optional* adds routes for using Able from a client browser. Defaults to `false`.
+- **watch** : *optional* poll git for changes to experiments. Defaults to `false`.
